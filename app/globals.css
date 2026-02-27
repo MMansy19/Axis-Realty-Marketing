@@ -18,6 +18,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --brand-bg: #0B0F14;
   --brand-accent: #C79E3D;
