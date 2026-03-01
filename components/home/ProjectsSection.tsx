@@ -42,10 +42,10 @@ export default function ProjectsSection({ locale, translations: t }: ProjectsSec
 
   // Map project images — first 4 images available
   const projectImages: Record<string, string> = {
-    [projects[0]?.id]: '/bg/image-0.png',
-    [projects[1]?.id]: '/bg/image-1.png',
-    [projects[2]?.id]: '/bg/image-2.png',
-    [projects[3]?.id]: '/bg/image-3.png',
+    [projects[0]?.id]: '/bg/image-0.webp',
+    [projects[1]?.id]: '/bg/image-1.webp',
+    [projects[2]?.id]: '/bg/image-2.webp',
+    [projects[3]?.id]: '/bg/image-3.webp',
   };
 
   return (
@@ -77,10 +77,12 @@ export default function ProjectsSection({ locale, translations: t }: ProjectsSec
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <Image
-            src="/bg/hero-bg.png"
+            src="/bg/hero-bg.webp"
             alt={isAr ? featured.name_ar : featured.name_en}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            quality={75}
             priority
           />
           <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-500" />
@@ -124,6 +126,8 @@ export default function ProjectsSection({ locale, translations: t }: ProjectsSec
                   alt={isAr ? project.name_ar : project.name_en}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  quality={75}
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-surface)] to-[var(--brand-bg)]" />

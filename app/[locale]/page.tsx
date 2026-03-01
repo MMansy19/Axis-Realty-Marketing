@@ -71,7 +71,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
             },
             sameAs: [
               'https://linkedin.com/company/axis-realty-marketing',
-              'https://wa.me/201234567890',
+              'https://wa.me/201097424490',
             ],
             address: {
               '@type': 'PostalAddress',

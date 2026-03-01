@@ -29,7 +29,7 @@ const defaultTranslations = {
   contact: 'Contact',
   contact_us: 'Contact Us',
   rights: 'All rights reserved.',
-  location_cairo: 'Cairo, Egypt',
+  location_cairo: '165 Hadayek El-Ahram, Giza, Egypt',
   aria_whatsapp: 'Chat on WhatsApp',
   aria_linkedin: 'LinkedIn',
 };
@@ -78,9 +78,9 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
             </h3>
             <ul className="space-y-3">
               <li>
-                <a href="tel:+201234567890" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1">
+                <a href="tel:+201097424490" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1">
                   <Phone size={15} className="flex-shrink-0" />
-                  <span>+20 123 456 7890</span>
+                  <span>+20 10 97424490</span>
                 </a>
               </li>
               <li>
@@ -107,7 +107,7 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://wa.me/201234567890"
+                href="https://wa.me/201097424490"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--brand-muted)] hover:text-[#25D366] transition-colors p-2.5"

@@ -6,7 +6,7 @@ interface WhatsAppButtonProps {
 export default function WhatsAppButton({ aria_whatsapp = 'Chat on WhatsApp' }: WhatsAppButtonProps) {
   return (
     <a
-      href="https://wa.me/201234567890"
+      href="https://wa.me/201097424490"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-20 end-4 sm:bottom-24 sm:end-8 w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 z-50"

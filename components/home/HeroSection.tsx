@@ -22,13 +22,13 @@ export default function HeroSection({ locale, translations: t }: HeroSectionProp
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 animate-slow-zoom">
           <Image
-            src="/bg/hero-bg.png"
+            src="/bg/hero-bg.webp"
             alt=""
             fill
             priority
             className="object-cover object-center"
             sizes="100vw"
-            quality={90}
+            quality={75}
           />
         </div>
 

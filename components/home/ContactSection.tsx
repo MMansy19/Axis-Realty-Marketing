@@ -95,8 +95,8 @@ export default function ContactSection({ locale, translations: t }: ContactSecti
   ];
 
   const mapsUrl = isRTL
-    ? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.664426543161!2d31.3204983!3d30.0464296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e5c3c137409%3A0x6b4fb712d921e149!2sCairo%2C%20Cairo%20Governorate%2C%20Egypt!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg'
-    : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.664426543161!2d31.3204983!3d30.0464296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e5c3c137409%3A0x6b4fb712d921e149!2sCairo%2C%20Cairo%20Governorate%2C%20Egypt!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus';
+    ? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.2!2d31.1128!3d29.9875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14584f0a4c9c5e1d%3A0x4e2e0e6c1a8b2d3f!2sHadayek%20El-Ahram%2C%20Giza%2C%20Egypt!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg'
+    : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.2!2d31.1128!3d29.9875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14584f0a4c9c5e1d%3A0x4e2e0e6c1a8b2d3f!2sHadayek%20El-Ahram%2C%20Giza%2C%20Egypt!5e0!3m2!1sen!2seg!4v1700000000000!5m2!1sen!2seg';
 
   return (
     <section className="bg-[var(--brand-rich-gray)] py-24 sm:py-32" id="contact" ref={ref}>
@@ -235,11 +235,11 @@ export default function ContactSection({ locale, translations: t }: ContactSecti
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <a href="tel:+201234567890" className="flex items-center gap-4 text-[var(--brand-text)] hover:text-[var(--brand-accent)] transition-colors group">
+            <a href="tel:+201097424490" className="flex items-center gap-4 text-[var(--brand-text)] hover:text-[var(--brand-accent)] transition-colors group">
               <div className="w-10 h-10 bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--brand-accent)]/10 transition-colors">
                 <Phone size={18} className="text-[var(--brand-accent)]" />
               </div>
-              <span className="text-sm">+20 123 456 7890</span>
+              <span className="text-sm">+20 10 97424490</span>
             </a>
             <a href="mailto:info@axisrealtymarketing.com" className="flex items-center gap-4 text-[var(--brand-text)] hover:text-[var(--brand-accent)] transition-colors group min-w-0">
               <div className="w-10 h-10 bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--brand-accent)]/10 transition-colors">
@@ -257,7 +257,7 @@ export default function ContactSection({ locale, translations: t }: ContactSecti
             {/* Social Links */}
             <div className="flex items-center gap-4 pt-2">
               <a
-                href="https://wa.me/201234567890"
+                href="https://wa.me/201097424490"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 bg-[var(--brand-surface)] flex items-center justify-center text-[var(--brand-muted)] hover:text-[#25D366] transition-colors"
