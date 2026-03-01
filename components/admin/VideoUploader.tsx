@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import { Upload, X, Video } from 'lucide-react';
@@ -88,7 +88,7 @@ export default function VideoUploader({ videoUrl, videoPublicId, onChange }: Vid
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-[#F6F5F3]/10 rounded-lg p-8 text-center cursor-pointer hover:border-[#C79E3D]/40 transition-colors"
+          className="border-2 border-dashed border-[#F5F4F2]/10 rounded-lg p-8 text-center cursor-pointer hover:border-[#C79E3D]/40 transition-colors"
         >
           {uploading ? (
             <>

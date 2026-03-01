@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -113,11 +113,11 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={() => router.push('/admin/dashboard')}
-            className="p-2 text-[#9AA0A6] hover:text-[#F6F5F3] transition-colors"
+            className="p-2.5 text-[#9AA0A6] hover:text-[#F5F4F2] transition-colors"
           >
             <ArrowLeft size={20} />
           </button>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#F6F5F3]">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#F5F4F2]">
             {isEditing ? 'Edit Blog' : 'New Blog'}
           </h1>
         </div>
@@ -130,7 +130,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
               type="text"
               value={titleEn}
               onChange={(e) => handleTitleEnChange(e.target.value)}
-              className="w-full bg-[#2E2B23] border border-[#F6F5F3]/10 rounded-sm px-4 py-3 text-[#F6F5F3] focus:outline-none focus:border-[#C79E3D] transition-colors"
+              className="w-full bg-[#2E2B23] border border-[#F5F4F2]/10 rounded-sm px-4 py-3 text-[#F5F4F2] focus:outline-none focus:border-[#C79E3D] transition-colors"
               placeholder="Blog title in English"
               required
             />
@@ -143,9 +143,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
               type="text"
               value={titleAr}
               onChange={(e) => setTitleAr(e.target.value)}
-              className="w-full bg-[#2E2B23] border border-[#F6F5F3]/10 rounded-sm px-4 py-3 text-[#F6F5F3] focus:outline-none focus:border-[#C79E3D] transition-colors text-right"
+              className="w-full bg-[#2E2B23] border border-[#F5F4F2]/10 rounded-sm px-4 py-3 text-[#F5F4F2] focus:outline-none focus:border-[#C79E3D] transition-colors text-right"
               dir="rtl"
-              placeholder="عنوان المدونة بالعربية"
+              placeholder="ط¹ظ†ظˆط§ظ† ط§ظ„ظ…ط¯ظˆظ†ط© ط¨ط§ظ„ط¹ط±ط¨ظٹط©"
               required
             />
           </div>
@@ -160,7 +160,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                     type="checkbox"
                     checked={autoSlug}
                     onChange={(e) => setAutoSlug(e.target.checked)}
-                    className="rounded border-[#F6F5F3]/10 bg-[#2E2B23]"
+                    className="rounded border-[#F5F4F2]/10 bg-[#2E2B23]"
                   />
                   Auto from title
                 </label>
@@ -170,7 +170,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
               type="text"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
-              className="w-full bg-[#2E2B23] border border-[#F6F5F3]/10 rounded-sm px-4 py-3 text-[#F6F5F3] focus:outline-none focus:border-[#C79E3D] transition-colors font-mono text-sm"
+              className="w-full bg-[#2E2B23] border border-[#F5F4F2]/10 rounded-sm px-4 py-3 text-[#F5F4F2] focus:outline-none focus:border-[#C79E3D] transition-colors font-mono text-sm"
               placeholder="blog-slug"
               required
             />
@@ -184,7 +184,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                 type="number"
                 value={displayOrder}
                 onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
-                className="w-full bg-[#2E2B23] border border-[#F6F5F3]/10 rounded-sm px-4 py-3 text-[#F6F5F3] focus:outline-none focus:border-[#C79E3D] transition-colors"
+                className="w-full bg-[#2E2B23] border border-[#F5F4F2]/10 rounded-sm px-4 py-3 text-[#F5F4F2] focus:outline-none focus:border-[#C79E3D] transition-colors"
               />
             </div>
             <div className="space-y-2">
@@ -227,7 +227,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
           <button
             type="submit"
             disabled={saving}
-            className="w-full flex items-center justify-center gap-2 bg-[#C79E3D] hover:bg-[#F59E0B] text-[#0B0F14] font-medium py-4 rounded-sm transition-colors uppercase text-sm tracking-wide disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 bg-[#C79E3D] hover:bg-[#C79E3D]/90 text-[#0B0F14] font-medium py-4 rounded-sm transition-colors uppercase text-sm tracking-wide disabled:opacity-50"
           >
             <Save size={18} />
             {saving ? 'Saving...' : isEditing ? 'Update Blog' : 'Create Blog'}

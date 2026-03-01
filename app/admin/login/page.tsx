@@ -38,20 +38,25 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-6 sm:mb-8">
           <div className="flex justify-center mb-4">
-            <img src="/logo.png" alt="Imperium" className="w-12 h-12 sm:w-14 sm:h-14" />
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="22.5" y="4" width="3" height="40" rx="1.5" fill="#C79E3D" />
+              <path d="M24 14L12 24L24 34" stroke="#F5F4F2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <path d="M24 14L36 24L24 34" stroke="#F5F4F2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <line x1="14" y1="24" x2="34" y2="24" stroke="#C79E3D" strokeWidth="2" />
+            </svg>
           </div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#F6F5F3] mb-2">Admin Login</h1>
-          <p className="text-[#9AA0A6] text-sm">Imperium Developments</p>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#F5F4F2] mb-2">Admin Login</h1>
+          <p className="text-[#9AA0A6] text-sm">AXIS REALTY MARKETING</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 bg-[#2B2F33] p-6 sm:p-8 rounded-lg border border-[#F6F5F3]/5">
+        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 bg-[#1A1D21] p-6 sm:p-8 rounded-lg border border-[#F5F4F2]/5">
           <div className="space-y-2">
             <label className="text-sm text-[#9AA0A6] uppercase tracking-wider">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#2E2B23] border border-[#F6F5F3]/10 rounded-sm px-4 py-3 text-[#F6F5F3] focus:outline-none focus:border-[#C79E3D] transition-colors"
+              className="w-full bg-[#12161C] border border-[#F5F4F2]/10 rounded-sm px-4 py-3 text-[#F5F4F2] focus:outline-none focus:border-[#C79E3D] transition-colors"
               required
               autoFocus
             />
@@ -64,7 +69,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#C79E3D] hover:bg-[#F59E0B] text-[#0B0F14] font-medium py-3 rounded-sm transition-colors uppercase text-sm tracking-wide disabled:opacity-50"
+            className="w-full bg-[#C79E3D] hover:bg-[#C79E3D]/90 text-[#0B0F14] font-medium py-3 rounded-sm transition-colors uppercase text-sm tracking-wide disabled:opacity-50"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>

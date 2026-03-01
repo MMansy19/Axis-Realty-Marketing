@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import { Upload, X, GripVertical } from 'lucide-react';
@@ -87,7 +87,7 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
         onClick={() => fileInputRef.current?.click()}
-        className="border-2 border-dashed border-[#F6F5F3]/10 rounded-lg p-8 text-center cursor-pointer hover:border-[#C79E3D]/40 transition-colors"
+        className="border-2 border-dashed border-[#F5F4F2]/10 rounded-lg p-8 text-center cursor-pointer hover:border-[#C79E3D]/40 transition-colors"
       >
         <Upload size={32} className="mx-auto mb-3 text-[#9AA0A6]" />
         <p className="text-[#9AA0A6] text-sm">

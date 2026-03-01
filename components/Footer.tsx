@@ -1,63 +1,49 @@
-import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 interface FooterProps {
   locale?: string;
   translations?: {
-    company_name: string;
     tagline: string;
     quick_links: string;
     home: string;
+    services: string;
     projects: string;
-    about: string;
     blog: string;
+    contact: string;
     contact_us: string;
-    inquiry: string;
-    rights_reserved: string;
+    rights: string;
+    location_cairo: string;
+    aria_whatsapp: string;
+    aria_linkedin: string;
   };
 }
 
 const defaultTranslations = {
-  company_name: 'Imperium Developments',
-  tagline: 'Premium Living, Thoughtfully Crafted',
+  tagline: 'Strategic Real Estate Marketing & Sales Management',
   quick_links: 'Quick Links',
   home: 'Home',
+  services: 'Services',
   projects: 'Projects',
-  about: 'About',
   blog: 'Blog',
+  contact: 'Contact',
   contact_us: 'Contact Us',
-  inquiry: 'Property Inquiry',
-  rights_reserved: 'All rights reserved.',
+  rights: 'All rights reserved.',
+  location_cairo: 'Cairo, Egypt',
+  aria_whatsapp: 'Chat on WhatsApp',
+  aria_linkedin: 'LinkedIn',
 };
 
 export default function Footer({ locale = 'en', translations }: FooterProps) {
   const t = translations || defaultTranslations;
-  const isAr = locale === 'ar';
 
   return (
-    <footer className="bg-[var(--brand-rich-gray)] border-t border-[var(--brand-light)]/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-24 py-12 sm:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
+    <footer className="bg-[var(--brand-bg)] border-t border-[var(--brand-light)]/5 pb-20 sm:pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12">
           {/* Brand */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="Imperium Developments"
-                width={52}
-                height={52}
-                className="flex-shrink-0 w-12 h-12 sm:w-13 sm:h-13"
-                quality={100}
-              />
-              <div className="flex flex-col">
-                <span className={`font-serif text-xl sm:text-2xl tracking-widest text-[var(--brand-text)] leading-none uppercase ${isAr ? 'font-arabic' : ''}`}>
-                  {isAr ? 'إمبيريوم' : 'Imperium'}
-                </span>
-                <span className={`text-[0.6rem] tracking-[0.25em] text-[var(--brand-accent)] uppercase mt-0.5 ${isAr ? 'font-sans' : ''}`}>
-                  {isAr ? 'للتطوير' : 'Developments'}
-                </span>
-              </div>
-            </div>
+          <div className="space-y-5">
+                      <Logo variant="horizontal" scheme="light" locale={locale} className="h-16 sm:h-18 lg:h-20 w-auto" />
             <p className="text-[var(--brand-muted)] text-sm leading-relaxed max-w-xs">
               {t.tagline}
             </p>
@@ -65,60 +51,48 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-[var(--brand-text)] font-semibold text-sm uppercase tracking-wider">
+            <h3 className="text-[var(--brand-text)] font-semibold text-xs uppercase tracking-[0.2em]">
               {t.quick_links}
             </h3>
-            <ul className="space-y-2">
-              <li>
-                <a href={`/${locale}`} className="text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  {t.home}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}#projects`} className="text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  {t.projects}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}#about`} className="text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  {t.about}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}/blog`} className="text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  {t.blog}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}#inquiry`} className="text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  {t.inquiry}
-                </a>
-              </li>
+            <ul className="space-y-2.5">
+              {[
+                { href: `/${locale}`, label: t.home },
+                { href: `/${locale}#services`, label: t.services },
+                { href: `/${locale}#projects`, label: t.projects },
+                { href: `/${locale}/blog`, label: t.blog },
+                { href: `/${locale}#contact`, label: t.contact },
+              ].map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm inline-block py-1">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="text-[var(--brand-text)] font-semibold text-sm uppercase tracking-wider">
+            <h3 className="text-[var(--brand-text)] font-semibold text-xs uppercase tracking-[0.2em]">
               {t.contact_us}
             </h3>
             <ul className="space-y-3">
               <li>
-                <a href="tel:+201234567890" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  <Phone size={16} className="flex-shrink-0" />
+                <a href="tel:+201234567890" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1">
+                  <Phone size={15} className="flex-shrink-0" />
                   <span>+20 123 456 7890</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@imperiumdev.com" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm">
-                  <Mail size={16} className="flex-shrink-0" />
-                  <span>info@imperiumdev.com</span>
+                <a href="mailto:info@axisrealtymarketing.com" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
+                  <Mail size={15} className="flex-shrink-0" />
+                  <span className="truncate">info@axisrealtymarketing.com</span>
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-3 text-[var(--brand-muted)] text-sm">
-                  <MapPin size={16} className="flex-shrink-0 mt-0.5" />
-                  <span>{isAr ? 'القاهرة، مصر' : 'Cairo, Egypt'}</span>
+                <div className="flex items-start gap-3 text-[var(--brand-muted)] text-sm py-1">
+                  <MapPin size={15} className="flex-shrink-0 mt-0.5" />
+                  <span>{t.location_cairo}</span>
                 </div>
               </li>
             </ul>
@@ -126,21 +100,32 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-[var(--brand-light)]/5">
+        <div className="mt-12 pt-8 border-t border-[var(--brand-light)]/5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-[var(--brand-muted)] text-xs sm:text-sm text-center sm:text-start">
-              &copy; {new Date().getFullYear()} {t.company_name}. {t.rights_reserved}
+            <p className="text-[var(--brand-muted)] text-xs text-center sm:text-start">
+              &copy; {new Date().getFullYear()} AXIS REALTY MARKETING. {t.rights}
             </p>
-            <div className="flex items-center gap-4">
-              <a 
-                href="https://wa.me/201234567890" 
-                target="_blank" 
+            <div className="flex items-center gap-3">
+              <a
+                href="https://wa.me/201234567890"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--brand-muted)] hover:text-[#25D366] transition-colors"
-                aria-label="WhatsApp"
+                className="text-[var(--brand-muted)] hover:text-[#25D366] transition-colors p-2.5"
+                aria-label={t.aria_whatsapp}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </a>
+              <a
+                href="https://linkedin.com/company/axis-realty-marketing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--brand-muted)] hover:text-[#0A66C2] transition-colors p-2.5"
+                aria-label={t.aria_linkedin}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </a>
             </div>

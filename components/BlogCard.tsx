@@ -5,11 +5,17 @@ import type { Blog } from '@/lib/types/blog';
 interface BlogCardProps {
   blog: Blog;
   locale: string;
+  translations?: {
+    blog_no_image: string;
+    blog_has_video: string;
+  };
 }
 
-export default function BlogCard({ blog, locale }: BlogCardProps) {
+export default function BlogCard({ blog, locale, translations }: BlogCardProps) {
   const title = locale === 'ar' ? blog.title_ar : blog.title_en;
   const coverImage = blog.blog_images?.[0];
+  const noImageText = translations?.blog_no_image ?? 'No image';
+  const hasVideoText = translations?.blog_has_video ?? 'Includes video';
 
   return (
     <Link href={`/blog/${blog.slug}`} className="group block">
@@ -24,7 +30,7 @@ export default function BlogCard({ blog, locale }: BlogCardProps) {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-[var(--brand-muted)]">
-              No image
+              {noImageText}
             </div>
           )}
           <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
@@ -35,7 +41,7 @@ export default function BlogCard({ blog, locale }: BlogCardProps) {
           </h3>
           {blog.video_url && (
             <span className="inline-block mt-2 text-xs text-[var(--brand-accent)] bg-[var(--brand-accent)]/10 px-2 py-1 rounded">
-              🎬 {locale === 'ar' ? 'يحتوي على فيديو' : 'Includes video'}
+              🎬 {hasVideoText}
             </span>
           )}
         </div>

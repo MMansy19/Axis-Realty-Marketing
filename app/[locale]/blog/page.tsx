@@ -3,7 +3,55 @@ import {supabase, isSupabaseConfigured} from '@/lib/supabase';
 import BlogCard from '@/components/BlogCard';
 import type {Blog} from '@/lib/types/blog';
 import {Link} from '@/i18n/routing';
-import {ArrowLeft} from 'lucide-react';
+import {ArrowLeft, ArrowRight} from 'lucide-react';
+import type {Metadata} from 'next';
+
+const BASE_URL = 'https://axisrealtymarketing.com';
+
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
+  const {locale} = await params;
+  const isAr = locale === 'ar';
+  const altLocale = isAr ? 'en' : 'ar';
+
+  const title = isAr ? 'المدونة' : 'Blog';
+  const description = isAr
+    ? 'اقرأ أحدث المقالات والرؤى حول التسويق العقاري وإدارة المبيعات من أكسيس ريلتي ماركتنج.'
+    : 'Read the latest articles and insights on real estate marketing and sales management from AXIS REALTY MARKETING.';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      siteName: 'AXIS REALTY MARKETING',
+      locale: isAr ? 'ar_EG' : 'en_US',
+      url: `${BASE_URL}/${locale}/blog`,
+      images: [
+        {
+          url: '/opengraph-image',
+          width: 1200,
+          height: 630,
+          alt: 'AXIS REALTY MARKETING Blog',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/opengraph-image'],
+    },
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/blog`,
+      languages: {
+        [locale]: `${BASE_URL}/${locale}/blog`,
+        [altLocale]: `${BASE_URL}/${altLocale}/blog`,
+      },
+    },
+  };
+}
 
 export default async function BlogListPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -32,11 +80,11 @@ export default async function BlogListPage({params}: {params: Promise<{locale: s
 
   return (
     <main className="min-h-screen bg-[var(--brand-bg)] text-[var(--brand-text)]">
-      <div className="pt-8 sm:pt-12 pb-16 sm:pb-24 px-4 sm:px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+      <div className="pt-8 sm:pt-12 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Back link */}
-        <Link href="/" className="inline-flex items-center gap-2 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors mb-8 sm:mb-12 text-sm">
-          <ArrowLeft size={16} />
-          {locale === 'ar' ? 'الرئيسية' : 'Home'}
+        <Link href="/" className="inline-flex items-center gap-2 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors mb-8 sm:mb-12 text-sm py-2">
+          {locale === 'ar' ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
+          {t('blog_home')}
         </Link>
 
         <div className="text-center mb-10 sm:mb-16">
@@ -48,12 +96,12 @@ export default async function BlogListPage({params}: {params: Promise<{locale: s
 
         {publishedBlogs.length === 0 ? (
           <p className="text-center text-[var(--brand-muted)]">
-            {locale === 'ar' ? 'لا توجد مقالات بعد' : 'No blogs yet'}
+            {t('blog_no_posts')}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {publishedBlogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} locale={locale} />
+              <BlogCard key={blog.id} blog={blog} locale={locale} translations={{ blog_no_image: t('blog_no_image'), blog_has_video: t('blog_has_video') }} />
             ))}
           </div>
         )}
