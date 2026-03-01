@@ -4,44 +4,50 @@ import { verifyAdmin } from '@/lib/auth';
 
 // GET /api/blogs — public list of published blogs
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const all = searchParams.get('all'); // admin wants all including drafts
+  try {
+    const { searchParams } = new URL(request.url);
+    const all = searchParams.get('all'); // admin wants all including drafts
 
-  let query;
+    let query;
 
-  if (all === 'true') {
-    const isAdmin = await verifyAdmin();
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (all === 'true') {
+      const isAdmin = await verifyAdmin();
+      if (!isAdmin) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      }
+      query = supabaseAdmin
+        .from('blogs')
+        .select('*, blog_images(*)')
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false });
+    } else {
+      query = supabase
+        .from('blogs')
+        .select('*, blog_images(*)')
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false });
     }
-    query = supabaseAdmin
-      .from('blogs')
-      .select('*, blog_images(*)')
-      .order('display_order', { ascending: true })
-      .order('created_at', { ascending: false });
-  } else {
-    query = supabase
-      .from('blogs')
-      .select('*, blog_images(*)')
-      .order('display_order', { ascending: true })
-      .order('created_at', { ascending: false });
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('Supabase query error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // Sort images by display_order within each blog
+    const blogs = (data || []).map((blog: Record<string, unknown>) => ({
+      ...blog,
+      blog_images: ((blog.blog_images as { display_order: number }[] | undefined) || []).sort(
+        (a: { display_order: number }, b: { display_order: number }) => a.display_order - b.display_order
+      ),
+    }));
+
+    return NextResponse.json(blogs);
+  } catch (err) {
+    console.error('GET /api/blogs unexpected error:', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-
-  const { data, error } = await query;
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  // Sort images by display_order within each blog
-  const blogs = (data || []).map((blog: Record<string, unknown>) => ({
-    ...blog,
-    blog_images: ((blog.blog_images as { display_order: number }[] | undefined) || []).sort(
-      (a: { display_order: number }, b: { display_order: number }) => a.display_order - b.display_order
-    ),
-  }));
-
-  return NextResponse.json(blogs);
 }
 
 // POST /api/blogs — create a blog (admin only)

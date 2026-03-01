@@ -46,7 +46,10 @@ function DashboardContent() {
         return;
       }
       const data = await res.json();
-      setBlogs(data);
+      setBlogs(Array.isArray(data) ? data : []);
+      if (!Array.isArray(data) && data?.error) {
+        console.error('API error:', data.error);
+      }
     } catch (err) {
       console.error('Failed to fetch blogs:', err);
     } finally {
