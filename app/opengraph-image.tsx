@@ -16,83 +16,129 @@ export default function OGImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0B0F14 0%, #1A1D21 50%, #0B0F14 100%)',
+          background: '#0B0F14',
           position: 'relative',
+          fontFamily: 'serif',
         }}
       >
-        {/* Gold accent line */}
+        {/* Subtle radial glow behind logo */}
         <div
           style={{
-            width: 2,
-            height: 80,
-            background: '#C79E3D',
-            marginBottom: 40,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 600,
+            height: 600,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(199,158,61,0.08) 0%, transparent 65%)',
           }}
         />
 
-        {/* Brand Name */}
+        {/* Logo icon mark — larger, bolder */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 8,
+            position: 'relative',
+            width: 160,
+            height: 160,
+            marginBottom: 36,
           }}
         >
-          <span
+          {/* Vertical gold line */}
+          <div
             style={{
-              fontSize: 64,
-              fontWeight: 700,
-              color: '#F5F4F2',
-              letterSpacing: '0.15em',
+              width: 4,
+              height: 130,
+              background: '#C79E3D',
+              position: 'absolute',
+              top: 0,
+              left: '50%',
+              transform: 'translateX(-50%)',
             }}
-          >
-            AXIS
-          </span>
-          <span
+          />
+          {/* Left leg of A */}
+          <div
             style={{
-              fontSize: 18,
-              fontWeight: 400,
-              color: '#C79E3D',
-              letterSpacing: '0.35em',
-              textTransform: 'uppercase',
+              width: 4,
+              height: 100,
+              background: '#F5F4F2',
+              position: 'absolute',
+              bottom: 0,
+              left: 24,
+              transform: 'rotate(18deg)',
+              transformOrigin: 'bottom center',
             }}
-          >
-            Realty Marketing
-          </span>
+          />
+          {/* Right leg of A */}
+          <div
+            style={{
+              width: 4,
+              height: 100,
+              background: '#F5F4F2',
+              position: 'absolute',
+              bottom: 0,
+              right: 24,
+              transform: 'rotate(-18deg)',
+              transformOrigin: 'bottom center',
+            }}
+          />
+          {/* Crossbar left */}
+          <div
+            style={{
+              width: 28,
+              height: 4,
+              background: '#F5F4F2',
+              position: 'absolute',
+              top: 84,
+              left: 32,
+            }}
+          />
+          {/* Crossbar right */}
+          <div
+            style={{
+              width: 28,
+              height: 4,
+              background: '#F5F4F2',
+              position: 'absolute',
+              top: 84,
+              right: 32,
+            }}
+          />
         </div>
 
-        {/* Tagline */}
+        {/* Brand Name: AXIS */}
         <div
           style={{
-            marginTop: 48,
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 4,
+            fontSize: 110,
+            fontWeight: 700,
+            color: '#F5F4F2',
+            letterSpacing: '0.22em',
+            lineHeight: 1,
           }}
         >
-          <span
-            style={{
-              fontSize: 28,
-              color: '#F5F4F2',
-              fontWeight: 600,
-            }}
-          >
-            We Build Demand. We Drive Sales.
-          </span>
-          <span
-            style={{
-              fontSize: 16,
-              color: '#9AA0A6',
-              marginTop: 12,
-            }}
-          >
-            Strategic Real Estate Marketing &amp; Sales Management
-          </span>
+          AXIS
         </div>
 
-        {/* Bottom gold line */}
+        {/* Sub-brand: REALTY MARKETING */}
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 26,
+            fontWeight: 400,
+            color: '#C79E3D',
+            letterSpacing: '0.45em',
+            marginTop: 18,
+            textTransform: 'uppercase',
+          }}
+        >
+          REALTY MARKETING
+        </div>
+
+        {/* Bottom gold accent */}
         <div
           style={{
             position: 'absolute',
@@ -103,13 +149,16 @@ export default function OGImage() {
           }}
         />
 
-        {/* Vignette overlay */}
+        {/* Vignette */}
         <div
           style={{
             position: 'absolute',
-            inset: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             background:
-              'radial-gradient(ellipse at center, transparent 50%, rgba(11,15,20,0.5) 100%)',
+              'radial-gradient(ellipse at center, transparent 40%, rgba(11,15,20,0.6) 100%)',
           }}
         />
       </div>
