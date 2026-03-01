@@ -24,6 +24,7 @@ function DashboardContent() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,6 +40,7 @@ function DashboardContent() {
 
   async function fetchBlogs() {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch('/api/blogs?all=true');
       if (res.status === 401) {
@@ -46,12 +48,18 @@ function DashboardContent() {
         return;
       }
       const data = await res.json();
+      if (!res.ok) {
+        setError(data?.error || `Server error (${res.status})`);
+        setBlogs([]);
+        return;
+      }
       setBlogs(Array.isArray(data) ? data : []);
       if (!Array.isArray(data) && data?.error) {
-        console.error('API error:', data.error);
+        setError(data.error);
       }
     } catch (err) {
       console.error('Failed to fetch blogs:', err);
+      setError('Network error — could not reach the server.');
     } finally {
       setLoading(false);
     }
@@ -59,6 +67,7 @@ function DashboardContent() {
 
   async function fetchLeads() {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch('/api/leads');
       if (res.status === 401) {
@@ -66,9 +75,15 @@ function DashboardContent() {
         return;
       }
       const data = await res.json();
+      if (!res.ok) {
+        setError(data?.error || `Server error (${res.status})`);
+        setLeads([]);
+        return;
+      }
       setLeads(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to fetch leads:', err);
+      setError('Network error — could not reach the server.');
     } finally {
       setLoading(false);
     }
@@ -190,6 +205,20 @@ function DashboardContent() {
             </button>
           </div>
         </div>
+
+        {/* Error banner */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+            <p className="text-red-400 text-sm font-medium">Error loading data</p>
+            <p className="text-red-400/80 text-xs mt-1">{error}</p>
+            <button
+              onClick={() => (activeTab === 'blogs' ? fetchBlogs() : fetchLeads())}
+              className="mt-2 text-xs text-[#C79E3D] hover:underline"
+            >
+              Retry
+            </button>
+          </div>
+        )}
 
         {/* Blog Tab */}
         {activeTab === 'blogs' && (

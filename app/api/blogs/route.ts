@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, supabaseAdmin } from '@/lib/supabase';
+import { supabase, supabaseAdmin, isSupabaseConfigured, isSupabaseAdminConfigured } from '@/lib/supabase';
 import { verifyAdmin } from '@/lib/auth';
 
 // GET /api/blogs — public list of published blogs
@@ -15,12 +15,24 @@ export async function GET(request: NextRequest) {
       if (!isAdmin) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
+      if (!isSupabaseAdminConfigured()) {
+        return NextResponse.json(
+          { error: 'Supabase admin not configured. Check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.' },
+          { status: 503 }
+        );
+      }
       query = supabaseAdmin
         .from('blogs')
         .select('*, blog_images(*)')
         .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
     } else {
+      if (!isSupabaseConfigured()) {
+        return NextResponse.json(
+          { error: 'Supabase not configured. Check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.' },
+          { status: 503 }
+        );
+      }
       query = supabase
         .from('blogs')
         .select('*, blog_images(*)')
@@ -55,6 +67,13 @@ export async function POST(request: NextRequest) {
   const isAdmin = await verifyAdmin();
   if (!isAdmin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  if (!isSupabaseAdminConfigured()) {
+    return NextResponse.json(
+      { error: 'Supabase admin not configured. Check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.' },
+      { status: 503 }
+    );
   }
 
   try {
