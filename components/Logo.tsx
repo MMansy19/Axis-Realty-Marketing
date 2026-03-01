@@ -49,9 +49,7 @@ export default function Logo({ variant = 'horizontal', scheme = 'light', locale 
   }
 
   // RTL: icon on right, text on left — mirror the LTR layout
-  const iconX = isRTL ? 370 : 30;
-  const textX = isRTL ? 340 : 160;
-  const subTextX = isRTL ? 337 : 163;
+  const iconX = isRTL ? 380 : 30;
   const textAnchor = isRTL ? 'end' : 'start';
 
   return (
@@ -59,10 +57,10 @@ export default function Logo({ variant = 'horizontal', scheme = 'light', locale 
       <svg x={iconX} y="20" width="100" height="100" viewBox="0 0 100 100">
         <AxisIconPaths mainColor={mainColor} axisColor={axisColor} />
       </svg>
-      <text x={textX} y="78" textAnchor={textAnchor} fill={textColor1} style={{ fontFamily: "'Cinzel', serif", fontWeight: 600, fontSize: '60px', letterSpacing: '0.4em' }}>
+      <text x="160" y="78" textAnchor={textAnchor} fill={textColor1} style={{ fontFamily: "'Cinzel', serif", fontWeight: 600, fontSize: '60px', letterSpacing: '0.4em' }}>
         AXIS
       </text>
-      <text x={subTextX} y="112" textAnchor={textAnchor} fill={textColor2} style={{ fontFamily: "'Cinzel', serif", fontWeight: 400, fontSize: '16px', letterSpacing: '0.2em' }}>
+      <text x="163" y="112" textAnchor={textAnchor} fill={textColor2} style={{ fontFamily: "'Cinzel', serif", fontWeight: 400, fontSize: '16px', letterSpacing: '0.2em' }}>
         REALTY MARKETING
       </text>
     </svg>
