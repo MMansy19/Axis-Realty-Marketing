@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import { useState, useRef } from 'react';
-import { Upload, X, GripVertical } from 'lucide-react';
+import { Upload, X, GripVertical, Loader2 } from 'lucide-react';
 
 interface UploadedImage {
   url: string;
@@ -17,6 +17,7 @@ interface ImageUploaderProps {
 
 export default function ImageUploader({ images, onChange }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false);
+  const [deletingIndex, setDeletingIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(files: FileList) {
@@ -55,7 +56,9 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
   }
 
   async function handleRemove(index: number) {
+    if (!confirm('Delete this image? This cannot be undone.')) return;
     const img = images[index];
+    setDeletingIndex(index);
 
     // Delete from ImageKit (best effort)
     try {
@@ -69,6 +72,7 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
       display_order: i,
     }));
     onChange(updated);
+    setDeletingIndex(null);
   }
 
   function handleDrop(e: React.DragEvent) {
@@ -117,20 +121,25 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
                 alt={`Upload ${index + 1}`}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                <span className="text-white text-xs bg-black/50 px-2 py-1 rounded">
-                  <GripVertical size={14} className="inline" /> #{index + 1}
-                </span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemove(index);
-                  }}
-                  className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
-                >
-                  <X size={14} />
-                </button>
-              </div>
+              {deletingIndex === index && (
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                  <Loader2 size={24} className="text-white animate-spin" />
+                </div>
+              )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemove(index);
+                }}
+                disabled={deletingIndex !== null}
+                className="absolute top-1.5 right-1.5 p-1.5 bg-red-500/90 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg"
+                title="Delete image"
+              >
+                <X size={14} />
+              </button>
+              <span className="absolute bottom-1.5 left-1.5 text-white text-[10px] bg-black/60 px-1.5 py-0.5 rounded">
+                #{index + 1}
+              </span>
             </div>
           ))}
         </div>

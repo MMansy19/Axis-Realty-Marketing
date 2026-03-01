@@ -27,7 +27,7 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
   }, [inView, value]);
 
   return (
-    <span className="font-serif text-3xl sm:text-4xl  font-bold text-[var(--brand-accent)]">
+    <span className="font-serif text-2xl sm:text-3xl  font-bold text-[var(--brand-accent)]">
       {display}{suffix}
     </span>
   );
@@ -114,7 +114,7 @@ export default function CaseStudySection({ locale, translations: t }: CaseStudyS
             <div className="grid grid-cols-2 gap-4 sm:gap-8">
               {study.after_metrics.map((metric, i) => (
                 <div key={i} className="space-y-2">
-                  <AnimatedCounter value={metric.value} suffix={metric.suffix} inView={isInView} />
+                  <AnimatedCounter value={metric.value} suffix={isAr ? metric.suffix_ar : metric.suffix_en} inView={isInView} />
                   <p className="text-[var(--brand-muted)] text-sm">
                     {isAr ? metric.label_ar : metric.label_en}
                   </p>

@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import { useState, useRef } from 'react';
-import { Upload, X, Video } from 'lucide-react';
+import { Upload, X, Video, Loader2 } from 'lucide-react';
 
 interface VideoUploaderProps {
   videoUrl: string | null;
@@ -11,6 +11,7 @@ interface VideoUploaderProps {
 
 export default function VideoUploader({ videoUrl, videoPublicId, onChange }: VideoUploaderProps) {
   const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(file: File) {
@@ -48,6 +49,8 @@ export default function VideoUploader({ videoUrl, videoPublicId, onChange }: Vid
   }
 
   async function handleRemove() {
+    if (!confirm('Delete this video? This cannot be undone.')) return;
+    setDeleting(true);
     if (videoPublicId) {
       try {
         await fetch(`/api/upload/video/${encodeURIComponent(videoPublicId)}`, { method: 'DELETE' });
@@ -56,6 +59,7 @@ export default function VideoUploader({ videoUrl, videoPublicId, onChange }: Vid
       }
     }
     onChange(null);
+    setDeleting(false);
   }
 
   function handleDrop(e: React.DragEvent) {
@@ -76,9 +80,16 @@ export default function VideoUploader({ videoUrl, videoPublicId, onChange }: Vid
             controls
             className="w-full max-h-64 object-contain bg-black"
           />
+          {deleting && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+              <Loader2 size={28} className="text-white animate-spin" />
+            </div>
+          )}
           <button
             onClick={handleRemove}
-            className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+            disabled={deleting}
+            className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg disabled:opacity-50"
+            title="Delete video"
           >
             <X size={14} />
           </button>

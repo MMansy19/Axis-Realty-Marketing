@@ -59,7 +59,7 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
                 { href: `/${locale}`, label: t.home },
                 { href: `/${locale}#services`, label: t.services },
                 { href: `/${locale}#projects`, label: t.projects },
-                { href: `/${locale}/blog`, label: t.blog },
+                { href: `/${locale}#blog`, label: t.blog },
                 { href: `/${locale}#contact`, label: t.contact },
               ].map((link) => (
                 <li key={link.href}>

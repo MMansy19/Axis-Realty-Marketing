@@ -2,7 +2,8 @@ export interface CaseStudyMetric {
   label_en: string;
   label_ar: string;
   value: number;
-  suffix: string;
+  suffix_en: string;
+  suffix_ar: string;
 }
 
 export interface CaseStudy {

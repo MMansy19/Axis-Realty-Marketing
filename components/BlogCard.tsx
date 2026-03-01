@@ -34,16 +34,16 @@ export default function BlogCard({ blog, locale, translations }: BlogCardProps) 
             </div>
           )}
           <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+          {blog.video_url && (
+            <span className={`absolute top-2 text-xs text-[var(--brand-accent)] bg-[var(--brand-accent)]/30 px-2 py-1 rounded ${locale === 'ar' ? 'right-2' : 'left-2'}`}>
+              🎬 {hasVideoText}
+            </span>
+          )}
         </div>
         <div className="p-6">
           <h3 className="font-serif text-xl font-bold text-[var(--brand-text)] line-clamp-2">
             {title}
           </h3>
-          {blog.video_url && (
-            <span className="inline-block mt-2 text-xs text-[var(--brand-accent)] bg-[var(--brand-accent)]/10 px-2 py-1 rounded">
-              🎬 {hasVideoText}
-            </span>
-          )}
         </div>
       </div>
     </Link>
