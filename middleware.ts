@@ -14,9 +14,23 @@ export default function middleware(request: NextRequest) {
 
   // Protect admin routes (except login)
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+    const adminSecret = process.env.ADMIN_SECRET;
     const adminToken = request.cookies.get('admin_token')?.value;
-    if (adminToken !== process.env.ADMIN_SECRET) {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+
+    // Fail closed: if secret is not configured or token doesn't match, block access
+    if (!adminSecret || !adminToken || adminToken !== adminSecret) {
+      const loginUrl = new URL('/admin/login', request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+    return NextResponse.next();
+  }
+
+  // Admin login page — redirect to dashboard if already authenticated, no i18n
+  if (pathname.startsWith('/admin/login')) {
+    const adminSecret = process.env.ADMIN_SECRET;
+    const adminToken = request.cookies.get('admin_token')?.value;
+    if (adminSecret && adminToken && adminToken === adminSecret) {
+      return NextResponse.redirect(new URL('/admin/dashboard', request.url));
     }
     return NextResponse.next();
   }

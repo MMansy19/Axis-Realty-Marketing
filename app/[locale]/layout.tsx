@@ -25,7 +25,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
 }
 
-const BASE_URL = 'https://axisrealtymarketing.com';
+const BASE_URL = 'https://axis-realty-marketing.vercel.app';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;

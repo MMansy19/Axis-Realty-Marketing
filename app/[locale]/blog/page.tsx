@@ -6,7 +6,7 @@ import {Link} from '@/i18n/routing';
 import {ArrowLeft, ArrowRight} from 'lucide-react';
 import type {Metadata} from 'next';
 
-const BASE_URL = 'https://axisrealtymarketing.com';
+const BASE_URL = 'https://axis-realty-marketing.vercel.app';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
   const {locale} = await params;

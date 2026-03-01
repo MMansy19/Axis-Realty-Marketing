@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://axisrealtymarketing.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://axis-realty-marketing.vercel.app';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const locales = ['en', 'ar'];

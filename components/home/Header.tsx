@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Phone } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 interface HeaderProps {

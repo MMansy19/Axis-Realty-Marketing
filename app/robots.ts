@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://axisrealtymarketing.com';
+const BASE_URL = 'https://axis-realty-marketing.vercel.app';
 
 export default function robots(): MetadataRoute.Robots {
   return {
