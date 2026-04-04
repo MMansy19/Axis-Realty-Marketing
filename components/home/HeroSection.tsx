@@ -75,9 +75,9 @@ export default function HeroSection({ locale, translations: t }: HeroSectionProp
         transition={{ duration: 2, ease: 'easeOut', delay: 0.5 }}
       />
 
-      {/* Content — Offset Left for Cinematic Composition */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="max-w-3xl">
+      {/* Content — Centered */}
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex justify-center">
+        <div className="max-w-3xl text-center flex flex-col items-center">
           {/* Accent Line Above Headline */}
           <motion.div
             className="w-12 h-[2px] bg-[var(--brand-accent)] mb-8"
@@ -117,7 +117,7 @@ export default function HeroSection({ locale, translations: t }: HeroSectionProp
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row items-start gap-4 mt-10 sm:mt-12"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 sm:mt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.5 }}
