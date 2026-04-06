@@ -1,11 +1,11 @@
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
-import Image from 'next/image';
 import {supabase, isSupabaseConfigured} from '@/lib/supabase';
 import {Link} from '@/i18n/routing';
 import {ArrowLeft, ArrowRight} from 'lucide-react';
 import type {Blog} from '@/lib/types/blog';
 import type {Metadata} from 'next';
+import BlogImageGallery from '@/components/blog/BlogImageGallery';
 
 interface PageProps {
   params: Promise<{locale: string; slug: string}>;
@@ -121,34 +121,7 @@ export default async function BlogDetailPage({params}: PageProps) {
 
         {/* Image Gallery */}
         {typedBlog.blog_images && typedBlog.blog_images.length > 0 && (
-          <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-12">
-            {/* Hero image */}
-            <div className="relative w-full aspect-[16/9] rounded-sm overflow-hidden">
-              <Image
-                src={typedBlog.blog_images[0].url}
-                alt={title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            {/* Additional images */}
-            {typedBlog.blog_images.length > 1 && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
-                {typedBlog.blog_images.slice(1).map((img) => (
-                  <div key={img.id} className="relative aspect-[4/3] rounded-sm overflow-hidden">
-                    <Image
-                      src={img.url}
-                      alt={title}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <BlogImageGallery images={typedBlog.blog_images} title={title} />
         )}
 
         {/* Video */}

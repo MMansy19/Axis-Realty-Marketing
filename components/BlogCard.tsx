@@ -41,7 +41,7 @@ export default function BlogCard({ blog, locale, translations }: BlogCardProps) 
           )}
         </div>
         <div className="p-6">
-          <h3 className="font-serif text-xl font-bold text-[var(--brand-text)] line-clamp-2">
+          <h3 className="font-serif text-xl font-bold text-[var(--brand-text)] line-clamp-2 leading-relaxed">
             {title}
           </h3>
         </div>
