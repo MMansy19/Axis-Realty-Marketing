@@ -10,6 +10,7 @@ import PositioningSection from '@/components/home/PositioningSection';
 import ServicesGrid from '@/components/home/ServicesGrid';
 import ProjectsSection from '@/components/home/ProjectsSection';
 import CaseStudySection from '@/components/home/CaseStudySection';
+import FinishingSection from '@/components/home/FinishingSection';
 import WhyAxisSection from '@/components/home/WhyAxisSection';
 import ProcessTimeline from '@/components/home/ProcessTimeline';
 import PrimaryCTASection from '@/components/home/PrimaryCTASection';
@@ -29,6 +30,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
 
   // Fetch published blogs for the blog section
   let publishedBlogs: Blog[] = [];
+  let finishingMedia: { url: string; thumbnail_url?: string; type: 'image' | 'video' }[] = [];
   if (isSupabaseConfigured()) {
     try {
       const {data: blogs} = await supabase
@@ -47,6 +49,23 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
     } catch (e) {
       console.error('Failed to fetch blogs:', e);
     }
+
+    // Fetch featured finishing media (latest published projects' media)
+    try {
+      const {data: media} = await supabase
+        .from('finishing_media')
+        .select('url, thumbnail_url, type, project_id, display_order')
+        .order('display_order', {ascending: true})
+        .limit(8);
+
+      finishingMedia = (media || []).map((m: { url: string; thumbnail_url?: string; type: string }) => ({
+        url: m.url,
+        thumbnail_url: m.thumbnail_url || undefined,
+        type: m.type as 'image' | 'video',
+      }));
+    } catch (e) {
+      console.error('Failed to fetch finishing media:', e);
+    }
   }
 
   return (
@@ -64,14 +83,16 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
             logo: 'https://axis-realty-marketing.vercel.app/logo.png',
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+20-123-456-7890',
+              telephone: '+20-10-37163571',
               contactType: 'sales',
               areaServed: 'EG',
               availableLanguage: ['English', 'Arabic'],
             },
             sameAs: [
               'https://linkedin.com/company/axis-realty-marketing',
-              'https://wa.me/201097424490',
+              'https://www.instagram.com/axisrealtymarketing',
+              'https://www.facebook.com/profile.php?id=61575345401095',
+              'https://wa.me/201037217638',
             ],
             address: {
               '@type': 'PostalAddress',
@@ -87,6 +108,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
         translations={{
           nav_services: t('nav_services'),
           nav_projects: t('nav_projects'),
+          nav_finishing: t('nav_finishing'),
           nav_about: t('nav_about'),
           nav_contact: t('nav_contact'),
           nav_blog: t('nav_blog'),
@@ -146,6 +168,23 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
           case_study_before: t('case_study_before'),
           case_study_after: t('case_study_after'),
         }}
+      />
+
+      <FinishingSection
+        locale={locale}
+        translations={{
+          finishing_headline: t('finishing_headline'),
+          finishing_subheadline: t('finishing_subheadline'),
+          finishing_stat_buildings: t('finishing_stat_buildings'),
+          finishing_stat_buildings_label: t('finishing_stat_buildings_label'),
+          finishing_locations_title: t('finishing_locations_title'),
+          finishing_location_dreamland: t('finishing_location_dreamland'),
+          finishing_location_zayed: t('finishing_location_zayed'),
+          finishing_location_san_capital: t('finishing_location_san_capital'),
+          finishing_cta: t('finishing_cta'),
+          finishing_view_all: t('finishing_view_all'),
+        }}
+        featuredMedia={finishingMedia}
       />
 
       {/* Blog Section */}
@@ -238,6 +277,8 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
           location_cairo: t('location_cairo'),
           aria_whatsapp: t('aria_whatsapp'),
           aria_linkedin: t('aria_linkedin'),
+          aria_instagram: t('aria_instagram'),
+          aria_facebook: t('aria_facebook'),
         }}
       />
 
@@ -249,6 +290,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
           home: t('footer_home'),
           services: t('footer_services'),
           projects: t('footer_projects'),
+          finishing: t('nav_finishing'),
           blog: t('footer_blog'),
           contact: t('footer_contact'),
           contact_us: t('footer_contact_us'),
@@ -256,6 +298,8 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
           location_cairo: t('location_cairo'),
           aria_whatsapp: t('aria_whatsapp'),
           aria_linkedin: t('aria_linkedin'),
+          aria_instagram: t('aria_instagram'),
+          aria_facebook: t('aria_facebook'),
         }}
       />
 

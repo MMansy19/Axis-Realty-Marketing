@@ -28,7 +28,7 @@ export default function StickyCTA({ translations: t }: StickyCTAProps) {
             {t.cta_whatsapp}
           </a>
           <a
-            href="tel:+201097424490"
+            href="tel:+201037163571"
             className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-[var(--brand-accent)] text-[var(--brand-bg)] text-xs sm:text-sm font-semibold hover:bg-[var(--brand-accent)]/90 transition-colors text-center flex items-center justify-center gap-2"
           >
             <Phone size={14} />

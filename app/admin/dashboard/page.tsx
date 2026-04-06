@@ -2,9 +2,10 @@
 
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Trash2, Edit, Plus, LogOut, Eye, EyeOff, Download, Users, FileText } from 'lucide-react';
+import { Trash2, Edit, Plus, LogOut, Eye, EyeOff, Download, Users, FileText, Building2 } from 'lucide-react';
 import type { Blog } from '@/lib/types/blog';
 import type { Lead } from '@/lib/types/lead';
+import type { FinishingProject } from '@/lib/types/project';
 
 export default function AdminDashboardPage() {
   return (
@@ -23,6 +24,7 @@ export default function AdminDashboardPage() {
 function DashboardContent() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [projects, setProjects] = useState<FinishingProject[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -33,6 +35,8 @@ function DashboardContent() {
   useEffect(() => {
     if (activeTab === 'blogs') {
       fetchBlogs();
+    } else if (activeTab === 'projects') {
+      fetchProjects();
     } else {
       fetchLeads();
     }
@@ -89,6 +93,30 @@ function DashboardContent() {
     }
   }
 
+  async function fetchProjects() {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/finishing-projects?all=true');
+      if (res.status === 401) {
+        router.push('/admin/login');
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data?.error || `Server error (${res.status})`);
+        setProjects([]);
+        return;
+      }
+      setProjects(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error('Failed to fetch projects:', err);
+      setError('Network error — could not reach the server.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleDelete(id: string) {
     if (!confirm('Are you sure you want to delete this blog? This will also delete all images and video.')) return;
 
@@ -102,6 +130,24 @@ function DashboardContent() {
       }
     } catch {
       alert('Failed to delete blog');
+    } finally {
+      setDeleting(null);
+    }
+  }
+
+  async function handleDeleteProject(id: string) {
+    if (!confirm('Are you sure you want to delete this project? This will also delete all media.')) return;
+
+    setDeleting(id);
+    try {
+      const res = await fetch(`/api/finishing-projects/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setProjects((prev) => prev.filter((p) => p.id !== id));
+      } else {
+        alert('Failed to delete project');
+      }
+    } catch {
+      alert('Failed to delete project');
     } finally {
       setDeleting(null);
     }
@@ -149,11 +195,13 @@ function DashboardContent() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-[#F5F4F2]">
-              {activeTab === 'blogs' ? 'Blog Dashboard' : 'Leads Dashboard'}
+              {activeTab === 'blogs' ? 'Blog Dashboard' : activeTab === 'projects' ? 'Projects Dashboard' : 'Leads Dashboard'}
             </h1>
             <p className="text-[#9AA0A6] text-sm mt-1">
               {activeTab === 'blogs'
                 ? `${blogs.length} blog${blogs.length !== 1 ? 's' : ''} total`
+                : activeTab === 'projects'
+                ? `${projects.length} project${projects.length !== 1 ? 's' : ''} total`
                 : `${leads.length} lead${leads.length !== 1 ? 's' : ''} total`}
             </p>
           </div>
@@ -167,6 +215,14 @@ function DashboardContent() {
                 }`}
               >
                 <FileText size={14} /> Blogs
+              </button>
+              <button
+                onClick={() => router.push('/admin/dashboard?tab=projects')}
+                className={`flex items-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-medium transition-colors ${
+                  activeTab === 'projects' ? 'text-[#C79E3D] bg-[#C79E3D]/10' : 'text-[#9AA0A6] hover:text-[#F5F4F2]'
+                }`}
+              >
+                <Building2 size={14} /> Projects
               </button>
               <button
                 onClick={() => router.push('/admin/dashboard?tab=leads')}
@@ -185,6 +241,15 @@ function DashboardContent() {
               >
                 <Plus size={18} />
                 New Blog
+              </button>
+            )}
+            {activeTab === 'projects' && (
+              <button
+                onClick={() => router.push('/admin/projects/new')}
+                className="flex items-center gap-2 px-4 sm:px-5 py-2.5 bg-[#C79E3D] text-[#0B0F14] font-medium rounded-sm transition-colors text-sm hover:bg-[#C79E3D]/90"
+              >
+                <Plus size={18} />
+                New Project
               </button>
             )}
             {activeTab === 'leads' && leads.length > 0 && (
@@ -212,7 +277,7 @@ function DashboardContent() {
             <p className="text-red-400 text-sm font-medium">Error loading data</p>
             <p className="text-red-400/80 text-xs mt-1">{error}</p>
             <button
-              onClick={() => (activeTab === 'blogs' ? fetchBlogs() : fetchLeads())}
+              onClick={() => (activeTab === 'blogs' ? fetchBlogs() : activeTab === 'projects' ? fetchProjects() : fetchLeads())}
               className="mt-2 text-xs text-[#C79E3D] hover:underline"
             >
               Retry
@@ -286,6 +351,92 @@ function DashboardContent() {
                       <button
                         onClick={() => handleDelete(blog.id)}
                         disabled={deleting === blog.id}
+                        className="p-2.5 text-[#9AA0A6] hover:text-red-400 transition-colors disabled:opacity-50"
+                        title="Delete"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Projects Tab */}
+        {activeTab === 'projects' && (
+          <>
+            {projects.length === 0 ? (
+              <div className="text-center py-20 bg-[#1A1D21] rounded-lg border border-[#F5F4F2]/5">
+                <Building2 size={40} className="mx-auto text-[#9AA0A6] mb-4" />
+                <p className="text-[#9AA0A6] mb-4">No finishing projects yet</p>
+                <button
+                  onClick={() => router.push('/admin/projects/new')}
+                  className="px-6 py-2.5 bg-[#C79E3D] text-[#0B0F14] font-medium rounded-sm transition-colors text-sm hover:bg-[#C79E3D]/90"
+                >
+                  Create your first project
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {projects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-[#1A1D21] rounded-lg border border-[#F5F4F2]/5 p-3 sm:p-4 hover:border-[#C79E3D]/30 transition-colors"
+                  >
+                    <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-sm overflow-hidden bg-[var(--brand-olive)] flex-shrink-0">
+                        {project.cover_image_url ? (
+                          <img
+                            src={project.cover_image_url}
+                            alt={project.title_en}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-[#9AA0A6] text-xs">
+                            No image
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                          <h3 className="font-medium text-[#F5F4F2] text-sm sm:text-base truncate">{project.title_en}</h3>
+                          {project.is_published ? (
+                            <span className="flex items-center gap-1 text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
+                              <Eye size={12} /> Published
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1 text-xs text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded-full">
+                              <EyeOff size={12} /> Draft
+                            </span>
+                          )}
+                          {project.property_type && (
+                            <span className="text-xs text-[#C79E3D] bg-[#C79E3D]/10 px-2 py-0.5 rounded-full capitalize">
+                              {project.property_type}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[#9AA0A6] text-xs sm:text-sm truncate">{project.title_ar}</p>
+                        <p className="text-[#9AA0A6] text-xs mt-1 hidden sm:block">
+                          {project.location_en || '—'}
+                          {project.area ? ` · ${project.area} sqm` : ''}
+                          {project.finishing_media ? ` · ${project.finishing_media.filter(m => m.type === 'image').length} images` : ''}
+                          {project.finishing_media?.some(m => m.type === 'video') ? ' · 1 video' : ''}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0 self-end sm:self-center">
+                      <button
+                        onClick={() => router.push(`/admin/projects/${project.id}/edit`)}
+                        className="p-2.5 text-[#9AA0A6] hover:text-[#C79E3D] transition-colors"
+                        title="Edit"
+                      >
+                        <Edit size={18} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteProject(project.id)}
+                        disabled={deleting === project.id}
                         className="p-2.5 text-[#9AA0A6] hover:text-red-400 transition-colors disabled:opacity-50"
                         title="Delete"
                       >

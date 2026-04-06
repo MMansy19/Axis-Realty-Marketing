@@ -55,6 +55,7 @@ export default function AdminLayout({
             </a>
             <nav className="flex items-center gap-1 sm:gap-2">
               <a href="/admin/dashboard" className="px-3 py-2.5 text-xs sm:text-sm text-[#F5F4F2]/70 hover:text-[#C79E3D] transition-colors tracking-wide">Blogs</a>
+              <a href="/admin/dashboard?tab=projects" className="px-3 py-2.5 text-xs sm:text-sm text-[#F5F4F2]/70 hover:text-[#C79E3D] transition-colors tracking-wide">Projects</a>
               <a href="/admin/dashboard?tab=leads" className="px-3 py-2.5 text-xs sm:text-sm text-[#F5F4F2]/70 hover:text-[#C79E3D] transition-colors tracking-wide">Leads</a>
             </nav>
           </div>

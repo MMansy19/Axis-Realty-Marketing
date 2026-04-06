@@ -9,6 +9,7 @@ interface HeaderProps {
   translations: {
     nav_services: string;
     nav_projects: string;
+    nav_finishing: string;
     nav_about: string;
     nav_contact: string;
     nav_blog: string;
@@ -36,6 +37,7 @@ export default function Header({ locale, translations: t }: HeaderProps) {
   const navLinks = [
     { href: '#services', label: t.nav_services },
     { href: '#projects', label: t.nav_projects },
+    { href: '#finishing', label: t.nav_finishing },
     { href: '#blog', label: t.nav_about },
     { href: '#contact', label: t.nav_contact },
     { href: `/${locale}/blog`, label: t.nav_blog },
