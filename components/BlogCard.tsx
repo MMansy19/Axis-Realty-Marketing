@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import type { Blog } from '@/lib/types/blog';
+import BlogImageLightbox from '@/components/blog/BlogImageLightbox';
 
 interface BlogCardProps {
   blog: Blog;
@@ -12,15 +16,26 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ blog, locale, translations }: BlogCardProps) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const title = locale === 'ar' ? blog.title_ar : blog.title_en;
-  const coverImage = blog.blog_images?.[0];
+  const galleryImages = blog.blog_images || [];
+  const coverImage = galleryImages[0];
   const noImageText = translations?.blog_no_image ?? 'No image';
   const hasVideoText = translations?.blog_has_video ?? 'Includes video';
 
   return (
-    <Link href={`/blog/${blog.slug}`} className="group block">
-      <div className="bg-[var(--brand-bg)] rounded-sm overflow-hidden border border-[var(--brand-light)]/5 hover:border-[var(--brand-accent)]/30 transition-all duration-500 hover:-translate-y-2 shadow-lg">
-        <div className="relative h-48 sm:h-64 w-full overflow-hidden bg-[var(--brand-olive)]">
+    <>
+      <div className="group block bg-[var(--brand-bg)] rounded-sm overflow-hidden border border-[var(--brand-light)]/5 hover:border-[var(--brand-accent)]/30 transition-all duration-500 hover:-translate-y-2 shadow-lg">
+        <button
+          type="button"
+          className="relative h-48 sm:h-64 w-full overflow-hidden bg-[var(--brand-olive)] text-left"
+          onClick={() => {
+            if (galleryImages.length > 0) {
+              setLightboxIndex(0);
+            }
+          }}
+          aria-label={galleryImages.length > 0 ? `Open gallery for ${title}` : title}
+        >
           {coverImage ? (
             <Image
               src={coverImage.thumbnail_url || coverImage.url}
@@ -39,13 +54,24 @@ export default function BlogCard({ blog, locale, translations }: BlogCardProps) 
               🎬 {hasVideoText}
             </span>
           )}
-        </div>
+        </button>
+
         <div className="p-6">
-          <h3 className="font-serif text-xl font-bold text-[var(--brand-text)] line-clamp-2 leading-relaxed">
-            {title}
-          </h3>
+          <Link href={`/blog/${blog.slug}`}>
+            <h3 className="font-serif text-xl font-bold text-[var(--brand-text)] line-clamp-2 leading-relaxed hover:text-[var(--brand-accent)] transition-colors">
+              {title}
+            </h3>
+          </Link>
         </div>
       </div>
-    </Link>
+
+      {lightboxIndex !== null && galleryImages.length > 0 && (
+        <BlogImageLightbox
+          images={galleryImages}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
+    </>
   );
 }

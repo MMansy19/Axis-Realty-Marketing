@@ -7,7 +7,8 @@ interface PrimaryCTASectionProps {
   translations: {
     primary_cta_headline: string;
     primary_cta_subheadline: string;
-    cta_schedule: string;
+    cta_whatsapp: string;
+    call_now: string;
   };
 }
 
@@ -48,15 +49,24 @@ export default function PrimaryCTASection({ translations: t }: PrimaryCTASection
         </motion.p>
 
         <motion.div
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <a
-            href="#contact"
-            className="block sm:inline-block mt-10 px-10 py-4 bg-[var(--brand-accent)] text-[var(--brand-bg)] font-semibold tracking-wide text-sm sm:text-base hover:bg-[var(--brand-accent)]/90 transition-all duration-300 text-center"
+            href="https://wa.me/201037217638"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-10 py-4 border border-[var(--brand-text)]/20 text-[var(--brand-text)] font-semibold tracking-wide text-sm sm:text-base hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)] transition-all duration-300 text-center"
           >
-            {t.cta_schedule}
+            {t.cta_whatsapp}
+          </a>
+          <a
+            href="tel:+201037163571"
+            className="w-full sm:w-auto px-10 py-4 bg-[var(--brand-accent)] text-[var(--brand-bg)] font-semibold tracking-wide text-sm sm:text-base hover:bg-[var(--brand-accent)]/90 transition-all duration-300 text-center"
+          >
+            {t.call_now}
           </a>
         </motion.div>
       </div>

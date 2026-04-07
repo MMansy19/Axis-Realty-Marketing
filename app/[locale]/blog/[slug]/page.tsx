@@ -115,7 +115,7 @@ export default async function BlogDetailPage({params}: PageProps) {
         </Link>
 
         {/* Title */}
-        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--brand-text)] mb-6 sm:mb-10">
+        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--brand-text)] mb-6 sm:mb-10 leading-[1.35] sm:leading-[1.3]">
           {title}
         </h1>
 

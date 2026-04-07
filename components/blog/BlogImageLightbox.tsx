@@ -52,6 +52,15 @@ export default function BlogImageLightbox({ images, initialIndex, onClose }: Blo
     }
   };
 
+  const handleWheel = (e: React.WheelEvent) => {
+    if (Math.abs(e.deltaY) < 10) return;
+    if (e.deltaY > 0) {
+      goNext();
+      return;
+    }
+    goPrev();
+  };
+
   if (!currentImage) return null;
 
   return (
@@ -79,6 +88,7 @@ export default function BlogImageLightbox({ images, initialIndex, onClose }: Blo
         onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onWheel={handleWheel}
       >
         <div className="relative w-full max-w-5xl aspect-[4/3]">
           <Image

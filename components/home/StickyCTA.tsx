@@ -19,7 +19,9 @@ export default function StickyCTA({ translations: t }: StickyCTAProps) {
         </p>
         <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <a
-            href="#contact"
+            href="https://wa.me/201037217638"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-transparent border border-[var(--brand-text)]/20 text-[var(--brand-text)] text-xs sm:text-sm font-medium hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)] transition-colors text-center flex items-center justify-center gap-2"
           >
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">

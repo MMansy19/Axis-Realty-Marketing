@@ -83,7 +83,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
             logo: 'https://axis-realty-marketing.vercel.app/logo.png',
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+20-10-37163571',
+              telephone: '+201037163571',
               contactType: 'sales',
               areaServed: 'EG',
               availableLanguage: ['English', 'Arabic'],
@@ -250,7 +250,8 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
         translations={{
           primary_cta_headline: t('primary_cta_headline'),
           primary_cta_subheadline: t('primary_cta_subheadline'),
-          cta_schedule: t('cta_schedule'),
+          cta_whatsapp: t('cta_whatsapp'),
+          call_now: t('call_now'),
         }}
       />
 

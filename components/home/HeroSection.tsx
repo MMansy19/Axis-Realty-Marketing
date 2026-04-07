@@ -95,7 +95,7 @@ export default function HeroSection({ locale, translations: t }: HeroSectionProp
             <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold tracking-tight text-[var(--brand-text)] leading-[1.05] break-words">
               <span className="block">{t.hero_headline_1}</span>
               <motion.span
-                className="block text-[var(--brand-accent)] mt-1"
+                className="block text-[var(--brand-accent)] mt-3 sm:mt-4"
                 initial={{ opacity: 0, x: locale === 'ar' ? 30 : -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9, delay: 1.1, ease: 'easeOut' }}
