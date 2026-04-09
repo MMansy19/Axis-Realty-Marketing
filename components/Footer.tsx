@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Globe } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe, MessageCircle } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 interface FooterProps {
@@ -19,6 +19,7 @@ interface FooterProps {
     aria_linkedin: string;
     aria_instagram?: string;
     aria_facebook?: string;
+    aria_tiktok?: string;
   };
 }
 
@@ -38,6 +39,7 @@ const defaultTranslations = {
   aria_linkedin: 'LinkedIn',
   aria_instagram: 'Instagram',
   aria_facebook: 'Facebook',
+  aria_tiktok: 'TikTok',
 };
 
 export default function Footer({ locale = 'en', translations }: FooterProps) {
@@ -91,15 +93,15 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="mailto:axisrealtymarket@gmail.com" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
-                  <Mail size={15} className="flex-shrink-0" />
-                  <span className="truncate">axisrealtymarket@gmail.com</span>
+                <a href="https://api.whatsapp.com/send/?phone=201037217638" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[#25D366] transition-colors text-sm py-1">
+                  <MessageCircle size={15} className="flex-shrink-0" />
+                  <span>+20 10 37217638</span>
                 </a>
               </li>
               <li>
-                <a href="https://www.axisrealty.org/en" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
-                  <Globe size={15} className="flex-shrink-0 mt-0.5" />
-                  <span className="truncate">🔗 الموقع الرسمي: https://www.axisrealty.org/en</span>
+                <a href="mailto:axisrealtymarket@gmail.com" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
+                  <Mail size={15} className="flex-shrink-0" />
+                  <span className="truncate">axisrealtymarket@gmail.com</span>
                 </a>
               </li>
               <li>
@@ -161,6 +163,17 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a
+                href="https://www.tiktok.com/@axis.realty.marke"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--brand-muted)] hover:text-[#fe2c55] transition-colors p-2.5"
+                aria-label={t.aria_tiktok || 'TikTok'}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.2 8.2 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/>
                 </svg>
               </a>
             </div>

@@ -280,6 +280,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
           aria_linkedin: t('aria_linkedin'),
           aria_instagram: t('aria_instagram'),
           aria_facebook: t('aria_facebook'),
+          aria_tiktok: t('aria_tiktok'),
         }}
       />
 
@@ -301,6 +302,7 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
           aria_linkedin: t('aria_linkedin'),
           aria_instagram: t('aria_instagram'),
           aria_facebook: t('aria_facebook'),
+          aria_tiktok: t('aria_tiktok'),
         }}
       />
 

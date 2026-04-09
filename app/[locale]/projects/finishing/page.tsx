@@ -196,6 +196,7 @@ export default async function FinishingProjectsPage({ params }: { params: Promis
           aria_linkedin: t('aria_linkedin'),
           aria_instagram: t('aria_instagram'),
           aria_facebook: t('aria_facebook'),
+          aria_tiktok: t('aria_tiktok'),
         }}
       />
     </main>
