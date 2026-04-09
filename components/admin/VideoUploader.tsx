@@ -26,18 +26,32 @@ export default function VideoUploader({ videoUrl, videoPublicId, onChange }: Vid
       }
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const res = await fetch('/api/upload/video', {
-        method: 'POST',
-        body: formData,
-      });
+      // Get a signed upload signature from our API (small request, no file data)
+      const sigRes = await fetch('/api/upload/video/signature', { method: 'POST' });
+      if (!sigRes.ok) {
+        alert('Failed to authorize upload');
+        setUploading(false);
+        return;
+      }
+      const { signature, timestamp, folder, cloudName, apiKey } = await sigRes.json();
+
+      // Upload directly to Cloudinary from the browser (bypasses Vercel body size limit)
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('api_key', apiKey);
+      formData.append('timestamp', String(timestamp));
+      formData.append('signature', signature);
+      formData.append('folder', folder);
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
+        { method: 'POST', body: formData }
+      );
 
       if (res.ok) {
         const data = await res.json();
-        onChange({ url: data.url, publicId: data.publicId });
+        onChange({ url: data.secure_url, publicId: data.public_id });
       } else {
         alert('Failed to upload video');
       }
