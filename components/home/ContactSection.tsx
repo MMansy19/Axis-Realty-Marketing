@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'motion/react';
 import { useRef, useState } from 'react';
-import { Phone, Mail, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface ContactSectionProps {
   locale: string;
@@ -243,11 +243,17 @@ export default function ContactSection({ locale, translations: t }: ContactSecti
               </div>
               <span className="text-sm">+20 10 37163571</span>
             </a>
-            <a href="mailto:info@axisrealtymarketing.com" className="flex items-center gap-4 text-[var(--brand-text)] hover:text-[var(--brand-accent)] transition-colors group min-w-0">
+            <a href="mailto:axisrealtymarket@gmail.com" className="flex items-center gap-4 text-[var(--brand-text)] hover:text-[var(--brand-accent)] transition-colors group min-w-0">
               <div className="w-10 h-10 bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--brand-accent)]/10 transition-colors">
                 <Mail size={18} className="text-[var(--brand-accent)]" />
               </div>
-              <span className="text-sm truncate">info@axisrealtymarketing.com</span>
+              <span className="text-sm truncate">axisrealtymarket@gmail.com</span>
+            </a>
+            <a href="https://www.axisrealty.org/en" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[var(--brand-text)] hover:text-[var(--brand-accent)] transition-colors group min-w-0">
+              <div className="w-10 h-10 bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--brand-accent)]/10 transition-colors">
+                <Globe size={18} className="text-[var(--brand-accent)]" />
+              </div>
+              <span className="text-sm truncate">🔗 الموقع الرسمي: https://www.axisrealty.org/en</span>
             </a>
             <div className="flex items-center gap-4 text-[var(--brand-text)]">
               <div className="w-10 h-10 bg-[var(--brand-surface)] flex items-center justify-center flex-shrink-0">

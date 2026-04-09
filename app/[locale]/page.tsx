@@ -79,8 +79,8 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
             '@type': 'Organization',
             name: 'AXIS REALTY MARKETING',
             description: 'Strategic Real Estate Marketing & Sales Management for Ambitious Developers',
-            url: 'https://axis-realty-marketing.vercel.app',
-            logo: 'https://axis-realty-marketing.vercel.app/logo.png',
+            url: 'https://www.axisrealty.org/en',
+            logo: 'https://www.axisrealty.org/logo.png',
             contactPoint: {
               '@type': 'ContactPoint',
               telephone: '+201037163571',

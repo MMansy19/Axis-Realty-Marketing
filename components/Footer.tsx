@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 interface FooterProps {
@@ -91,9 +91,15 @@ export default function Footer({ locale = 'en', translations }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@axisrealtymarketing.com" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
+                <a href="mailto:axisrealtymarket@gmail.com" className="flex items-center gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
                   <Mail size={15} className="flex-shrink-0" />
-                  <span className="truncate">info@axisrealtymarketing.com</span>
+                  <span className="truncate">axisrealtymarket@gmail.com</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.axisrealty.org/en" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-[var(--brand-muted)] hover:text-[var(--brand-accent)] transition-colors text-sm py-1 min-w-0">
+                  <Globe size={15} className="flex-shrink-0 mt-0.5" />
+                  <span className="truncate">🔗 الموقع الرسمي: https://www.axisrealty.org/en</span>
                 </a>
               </li>
               <li>

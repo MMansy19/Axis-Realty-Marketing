@@ -11,7 +11,7 @@ interface PageProps {
   params: Promise<{locale: string; slug: string}>;
 }
 
-const BASE_URL = 'https://axis-realty-marketing.vercel.app';
+const BASE_URL = 'https://www.axisrealty.org';
 
 export async function generateMetadata({params}: PageProps): Promise<Metadata> {
   const {locale, slug} = await params;
