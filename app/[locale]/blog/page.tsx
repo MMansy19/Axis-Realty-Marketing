@@ -3,7 +3,7 @@ import {supabase, isSupabaseConfigured} from '@/lib/supabase';
 import BlogCard from '@/components/BlogCard';
 import type {Blog} from '@/lib/types/blog';
 import {Link} from '@/i18n/routing';
-import {ArrowLeft, ArrowRight} from 'lucide-react';
+import {ArrowLeft, ArrowRight, PlayCircle} from 'lucide-react';
 import type {Metadata} from 'next';
 
 const BASE_URL = 'https://www.axisrealty.org';
@@ -91,7 +91,14 @@ export default async function BlogListPage({params}: {params: Promise<{locale: s
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--brand-text)] mb-4 sm:mb-6">
             {t('blog_section_title')}
           </h1>
-          <div className="w-16 sm:w-20 h-1 bg-[var(--brand-accent)] mx-auto"></div>
+          <div className="w-16 sm:w-20 h-1 bg-[var(--brand-accent)] mx-auto mb-6"></div>
+          <Link
+            href="/reels"
+            className="inline-flex items-center gap-2 bg-[var(--brand-accent)] hover:bg-[var(--brand-accent)]/90 text-[var(--brand-bg)] font-semibold text-sm px-5 py-2.5 rounded-full transition-colors"
+          >
+            <PlayCircle size={18} />
+            {t('reels_view_reels')}
+          </Link>
         </div>
 
         {publishedBlogs.length === 0 ? (
