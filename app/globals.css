@@ -69,4 +69,19 @@ html {
   color: var(--brand-light);
 }
 
+/* Hide scrollbar for reels feed */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Play/pause tap indicator animation */
+@keyframes fadeOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
 
